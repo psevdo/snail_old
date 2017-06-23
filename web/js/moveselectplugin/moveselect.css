@@ -1,0 +1,56 @@
+.moveselect {
+	width: 100%;
+	overflow: hidden;
+}
+.moveselect .avialable,
+.moveselect .awarded {
+	width: 200px;
+	height: 300px;
+	border: 1px solid #ccc;
+	border-radius: 4px;  /* свойство для тех кто его поддерживает */
+	-moz-border-radius: 4px;  /* для firefox */
+	-webkit-border-radius: 4px;
+}
+.moveselect .avialable,
+.moveselect .buttons,
+.moveselect .awarded {
+	float: left;
+}
+.moveselect ul {
+	margin: 0;
+	padding: 0;
+}
+.moveselect ul li {
+	list-style: none;
+	cursor: pointer;
+	padding: 3px 10px;
+}
+.moveselect ul li:hover {
+	background: #dbdbdb;
+}
+.moveselect ul li.selected {
+	background: #dbdbdb;
+}
+.buttons {
+	width: 30px;
+	margin: 60px 20px 0 20px;
+	font-weight: bold;
+}
+.buttons .moveselect-left,
+.buttons .moveselect-right,
+.buttons .moveselect-allleft,
+.buttons .moveselect-allright {
+	width: 30px;
+	height: 30px;
+	text-align: center;
+	cursor: pointer;
+	border: none;
+	border-radius: 4px;  /* свойство для тех кто его поддерживает */
+	-moz-border-radius: 4px;  /* для firefox */
+	-webkit-border-radius: 4px;
+}
+.buttons .moveselect-left, .buttons .moveselect-allleft { background: #E94747; margin-top: 10px; }
+.buttons .moveselect-right, .buttons .moveselect-allright { background: #32CD32; }
+.buttons .moveselect-left.disabled, .buttons .moveselect-allleft.disabled { opacity: 0.5; }
+.buttons .moveselect-right.disabled, .buttons .moveselect-allright.disabled { opacity: 0.5; }
+.buttons .moveselect-allright { margin-top: 40px; }

@@ -1,0 +1,85 @@
+<?php
+namespace app\modules\user\controllers;
+
+use Yii;
+use app\modules\user\models\rbac\Role;
+use app\modules\user\models\rbac\RoleSearch;
+
+class RbacController extends \yii\web\Controller {
+	
+	public function actionRole() {
+		
+		$searchModel = new RoleSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('role/index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+		
+		// Создание роли
+		/*
+		$role = Yii::$app->authManager->createRole('admin');
+		$role->description = 'Админ';
+		Yii::$app->authManager->add($role);
+		
+		$role = Yii::$app->authManager->createRole('user');
+		$role->description = 'Пользователь';
+		Yii::$app->authManager->add($role);
+		*/
+		
+
+	}
+	
+	public function actionRolecreate() {
+		$model = new Role();
+
+		if ($model->load(Yii::$app->request->post()) && $model->save()) {
+			return $this->redirect(['view', 'id' => $model->name]);
+		} else {
+			return $this->render('role/create', [
+				'model' => $model,
+			]);
+		}
+	}
+	
+	// присвоение роли пользователю
+	public function actionAssignrole() {
+		$userId = 1;
+		$role = Yii::$app->authManager->getRole('admin');
+		Yii::$app->authManager->assign($role, $userId);
+	}
+	
+	/*public function actionGetrole() {
+		$role = Yii::$app->authManager->getRolesByUser(Yii::$app->user->id);
+		$manager = Yii::$app->authManager;
+		echo '<pre>';
+		print_r($role);
+		print_r($manager);
+		echo '</pre>';
+	}*/
+	
+	// добавление разрешений
+	public function actionPermission() {
+		$permission = Yii::$app->authManager->createPermission('addPost');
+		$permission->description = 'Добавление постов';
+		Yii::$app->authManager->add($permission);
+	}
+	
+	// присвоение ролям разрешений
+	public function actionAssetpermission() {
+		// $role = Yii::$app->authManager->getRole('admin');
+		// $permit = Yii::$app->authManager->getPermission('listPost');
+		// Yii::$app->authManager->addChild($role, $permit);
+		
+		$role = Yii::$app->authManager->getRole('user');
+		$permit = Yii::$app->authManager->getPermission('listPost');
+		Yii::$app->authManager->addChild($role, $permit);
+		
+		echo '<pre>';
+		print_r($role);
+		print_r($permit);
+		echo '</pre>';
+	}
+	
+}
